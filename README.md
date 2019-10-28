@@ -39,13 +39,13 @@ chmod +x ~/catkin_ws/src/tello_control/tello_state.py
 roscore
 ```
 
-3. **新打开终端，**运行:
+3. **新打开终端**，运行:
 
 ```
 conda activate tello
 rosrun tello_control tello_state.py
 ```
-4. **新打开终端，**运行:
+4. **新打开终端**，运行:
 
 ```
 conda activate tello
