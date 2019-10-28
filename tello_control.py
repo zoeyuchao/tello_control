@@ -79,7 +79,7 @@ class control_handler:
 class info_updater():   
     def __init__(self):
         rospy.Subscriber("tello_state", String, self.update_state)
-        rospy.Subscriber("tello_img", Image, self.update_img)
+        rospy.Subscriber("tello_image", Image, self.update_img)
         con_thread = threading.Thread(target = rospy.spin)
         con_thread.start()
 

@@ -37,7 +37,7 @@ if __name__ == '__main__':
 	rospy.init_node('tello_state', anonymous=True)
 
 	state_pub = rospy.Publisher('tello_state',String, queue_size=3)
-	img_pub = rospy.Publisher('tello_img', Image, queue_size=5)
+	img_pub = rospy.Publisher('tello_image', Image, queue_size=5)
 
     # you can subscribe command directly, or you can just commit this function
 	sub_thread = threading.Thread(target = subscribe)

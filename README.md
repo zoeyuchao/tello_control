@@ -45,8 +45,6 @@ roscore
 rosrun tello_control tello_state.py
 rosrun tello_control tello_control.py
 ```
-这里注意要连接上飞机，否则会出现话题没有字符串会出现错误提示。
-
 3. 报错 no module named rospkg
 
 ```
@@ -63,7 +61,7 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
   - 发布/tello_state
 
-  - 发布/tello_img
+  - 发布/tello_image
 
   - 不通过ROS控制tello【比赛不建议采用这种形式】
 
@@ -75,7 +73,7 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
 - tello_control.py的作用：
 
-  - 助教开发的最小控制程序，反馈控制实现识别定位毯并且飞到定位毯的中心位置。
+  - 助教开发的最小控制程序，反馈控制实现识别定位毯并且飞到定位毯的中心位置。【注意：此程序仅适用于1号定位毯，其他定位毯需要修改程序】
 
   - 订阅
 
