@@ -4,6 +4,7 @@ import time
 import numpy as np
 import libh264decoder
 from stats import Stats
+
 class Tello:
     """Wrapper class to interact with the Tello drone."""
 

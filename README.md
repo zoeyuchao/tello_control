@@ -7,10 +7,10 @@
 ```
 sudo apt-get install libboost-all-dev libavcodec-dev libswscale-dev
 
-conda create -n tello python=3.5
+conda create -n tello python=2.7
 conda activate tello
 
-pip install numpy matplotlib opencv-python
+pip install pyyaml numpy matplotlib opencv-python
 
 cd ~/catkin_ws/src/
 git clone https://github.com/zoeyuchao/tello_control.git
@@ -40,24 +40,17 @@ rosrun tello_control tello_state.py
 rosrun tello_control tello_control.py
 ```
 
-3. 报错 no module named yaml
+3. 报错 no module named rospkg
 
-```
-pip install pyyaml
-```
-
-4. 报错 no module named rospkg
 ```
 conda install setuptools
 pip install -U rosdep rosinstall_generator wstool rosinstall six vcstools
 ```
-5. 报错ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type，在报错的文件里加上一句：
+4. 报错ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type，在报错的文件里加上一句：
 
 ```
 sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 ```
-
-  
 
 - tello_state.py的作用：
 
