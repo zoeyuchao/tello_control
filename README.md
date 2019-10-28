@@ -2,7 +2,7 @@
 
 这是THU无人机赛课初赛提供的最小控制demo，供同学们参考。
 
-代码改版自Tello官方SDK:https://github.com/dji-sdk/Tello-Python，需要进一步学习的同学请自行钻研。
+代码改版自Tello官方[SDK](https://github.com/dji-sdk/Tello-Python):   需要进一步学习的同学请自行钻研。
 
 ## 1.安装
 
@@ -86,7 +86,7 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
 - receiving video stream 端口11111（负责接收图像信息）
 - receiving state 端口8890（负责接收状态信息）
-- 控制指令见SDK2.0[文件]( [https://github.com/zoeyuchao/tello_control/blob/master/Tello_SDK_2.0_%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.pdf](https://github.com/zoeyuchao/tello_control/blob/master/Tello_SDK_2.0_使用说明.pdf) )
+- 控制指令见SDK2.0[文件](https://github.com/zoeyuchao/tello_control/blob/master/Tello_SDK_2.0_使用说明.pdf)
 
 
 
