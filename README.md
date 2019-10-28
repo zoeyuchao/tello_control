@@ -39,19 +39,27 @@ chmod +x ~/catkin_ws/src/tello_control/tello_state.py
 roscore
 ```
 
-3. **新打开终端，**运行两个py文件即可完成简单的demo测试：
+3. **新打开终端，**运行:
 
 ```
+conda activate tello
 rosrun tello_control tello_state.py
+```
+4. **新打开终端，**运行:
+
+```
+conda activate tello
 rosrun tello_control tello_control.py
 ```
-3. 报错 no module named rospkg
+
+5. 报错 no module named rospkg
 
 ```
+conda activate tello
 conda install setuptools
 pip install -U rosdep rosinstall_generator wstool rosinstall six vcstools
 ```
-4. 报错ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type，在报错的文件里加上一句：
+6. 报错ImportError: /opt/ros/kinetic/lib/python2.7/dist-packages/cv2.so: undefined symbol: PyCObject_Type，在报错的文件里加上一句：
 
 ```
 sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
