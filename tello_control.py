@@ -20,7 +20,7 @@ y_max_th = 200
 y_min_th = 170
 
 img = None
-tello_state = None
+tello_state = ""
 tello_state_lock = threading.Lock()    
 img_lock = threading.Lock()    
 
