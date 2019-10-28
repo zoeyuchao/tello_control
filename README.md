@@ -2,6 +2,8 @@
 
 这是THU无人机赛课初赛提供的最小控制demo，供同学们参考。
 
+代码改版自Tello官方SDK:https://github.com/dji-sdk/Tello-Python，需要进一步学习的同学请自行钻研。
+
 ## 1.安装
 
 ```
