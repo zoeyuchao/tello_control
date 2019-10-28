@@ -7,8 +7,6 @@
 ## 1.安装
 
 ```
-sudo apt-get install libboost-all-dev libavcodec-dev libswscale-dev
-
 conda create -n tello python=2.7
 conda activate tello
 
@@ -35,12 +33,19 @@ chmod +x ~/catkin_ws/src/tello_control/tello_control.py
 chmod +x ~/catkin_ws/src/tello_control/tello_state.py
 ```
 
-2. 运行两个py文件即可完成简单的demo测试：
+2. 打开一个终端：
+
+```
+roscore
+```
+
+3. **新打开终端，**运行两个py文件即可完成简单的demo测试：
 
 ```
 rosrun tello_control tello_state.py
 rosrun tello_control tello_control.py
 ```
+这里注意要连接上飞机，否则会出现话题没有字符串会出现错误提示。
 
 3. 报错 no module named rospkg
 
