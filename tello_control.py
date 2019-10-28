@@ -12,14 +12,15 @@ from std_msgs.msg import String
 from cv_bridge import CvBridge, CvBridgeError
 from sensor_msgs.msg import Image
 # if you can not find cv2 in your python, you can try this. usually happen when you use conda.
-#sys.path.append('/opt/ros/kinetic/lib/python2.7/dist-packages')
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 import tello_base as tello
 
 y_max_th = 200
 y_min_th = 170
 
-img, tello_state = None
+img = None
+tello_state = None
 tello_state_lock = threading.Lock()    
 img_lock = threading.Lock()    
 
@@ -222,7 +223,6 @@ if __name__ == '__main__':
 
     control_pub = rospy.Publisher('command', String, queue_size=1)
     ctrl = control_handler(control_pub)
-    img, tello_state
     infouper = info_updater()
     tasker = task_handle(ctrl)
 
