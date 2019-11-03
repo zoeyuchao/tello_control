@@ -80,8 +80,8 @@ class info_updater():
     def __init__(self):
         rospy.Subscriber("tello_state", String, self.update_state)
         rospy.Subscriber("tello_image", Image, self.update_img)
-        con_thread = threading.Thread(target = rospy.spin)
-        con_thread.start()
+        self.con_thread = threading.Thread(target = rospy.spin)
+        self.con_thread.start()
 
     def update_state(self,data):
         global tello_state, tello_state_lock
@@ -160,8 +160,8 @@ class task_handle():
                 self.finding_location()
             elif(self.now_stage == self.taskstages.order_location):
                 self.order_location()
+        self.ctrl.land()
         print("Task Done!")
-        exit(0)
     
     def finding_location(self): # find locating blanket (the higher, the easier)
         assert (self.now_stage == self.taskstages.finding_location)
@@ -177,19 +177,19 @@ class task_handle():
         assert (self.now_stage == self.taskstages.order_location)
         state_conf = 0
         self.States_Dict = parse_state()
-        while not ( self.States_Dict['yaw'] <= 8 and self.States_Dict['yaw'] >= -8 and self.States_Dict['x'] <= 120 and self.States_Dict['x'] >= 80 and  self.States_Dict['y'] <= 120 and self.States_Dict['y'] >= 80 and abs(self.States_Dict['z']) <= 150 and abs(self.States_Dict['z']) >= 190):
+        while not ( self.States_Dict['mpry'][1] + 90 <= 8 and self.States_Dict['mpry'][1] + 90 >= -8 and self.States_Dict['x'] <= 120 and self.States_Dict['x'] >= 80 and  self.States_Dict['y'] <= 120 and self.States_Dict['y'] >= 80 and abs(self.States_Dict['z']) >= 150 and abs(self.States_Dict['z']) <= 190):
             if ( abs(self.States_Dict['z']) > 190 or abs(self.States_Dict['z']) < 150 ):
-                if (self.States_Dict['z'] > 150):
+                if (abs(self.States_Dict['z']) < 150):
                     self.ctrl.up(20)     
                     time.sleep(4)
-                elif (self.States_Dict['z'] < 190):
+                elif (abs(self.States_Dict['z']) > 190):
                     self.ctrl.down(20) 
                     time.sleep(4)
-            elif ( self.States_Dict['yaw'] < -8 or self.States_Dict['yaw'] > 8 ):
-                if (self.States_Dict['yaw'] < -8):
+            elif ( self.States_Dict['mpry'][1] + 90 < -8 or self.States_Dict['mpry'][1] + 90 > 8 ):
+                if (self.States_Dict['mpry'][1] + 90 < -8):
                     self.ctrl.cw(10)
                     time.sleep(4)
-                elif(self.States_Dict['yaw'] > 8):
+                elif(self.States_Dict['mpry'][1] + 90 > 8):
                     self.ctrl.ccw(10)
                     time.sleep(4)
             elif ( self.States_Dict['x'] < 80 or self.States_Dict['x'] > 120 ):
@@ -210,11 +210,12 @@ class task_handle():
                 time.sleep(2)
                 self.ctrl.stop()
                 state_conf += 1
+                print("stop")
             self.States_Dict = parse_state()
             showimg()
             if self.States_Dict['mid'] < 0 :
                 self.now_stage = self.taskstages.finding_location
-                break
+                return
         self.now_stage = self.taskstages.finished     
 
 
