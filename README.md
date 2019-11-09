@@ -76,7 +76,7 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
   - 订阅终端向/command发布的消息（用于快速调试）
 
      ```
-      rostopic pub –1 /command std_msgs/String "takeoff"
+      rostopic pub -1 /command std_msgs/String "takeoff"
      ```
 
 - tello_control.py的作用：
