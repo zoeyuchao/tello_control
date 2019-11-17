@@ -21,6 +21,8 @@ class Tello:
         :param tello_ip (str): Tello IP.
         :param tello_port (int): Tello port.
         """
+        self.last = False
+        self.command = ""  #for debug
 
         self.abort_flag = False
         self.decoder = libh264decoder.H264Decoder()
@@ -172,36 +174,38 @@ class Tello:
 
         """
         self.log.append(Stats(command, len(self.log)))
-        print (">> send cmd: {}".format(command))
-        #self.abort_flag = False
-        #timer = threading.Timer(self.command_timeout, self.set_abort_flag)
-
+        print(">> send cmd: {}".format(command))
+        print(len(self.log),self.log[-1].got_response())
         self.socket.sendto(command.encode('utf-8'), self.tello_address)
+        print(len(self.log),self.log[-1].got_response())
+        self.last = self.log[-1].got_response()
         start = time.time()
-        while not self.log[-1].got_response():
-            now = time.time()
-            diff = now - start
-            if diff > self.MAX_TIME_OUT:
-                print ("Max timeout exceeded... command %s" % command)
-                # TODO: is timeout considered failure or next command still get executed
-                # now, next one got executed
-                
-        print ("Done!!! sent command: %s to %s" % (command, self.tello_ip))
+        #print(self.log[-1].got_response())
+        timelen = 0.
+        while True:
+            if not self.log[-1].got_response():
+                continue
+            elif (not self.last) and('ok' in str(self.log[-1].got_response())):
+                break
+            elif ('ok' in str(self.last)) and('ok' in str(self.log[-1].got_response())):
+                self.last = self.log[-1].got_response()
+                continue
+            elif 'ok' not in str(self.log[-1].got_response()):
+                now = time.time()
+                diff = now - start
+                if diff > timelen:
+                    print(self.log[-1].got_response())
+                    timelen += 1.
+                    self.socket.sendto(command.encode('utf-8'), self.tello_address)
+                #print(len(self.log))
+                if diff > self.MAX_TIME_OUT:
+                    print ('Max timeout exceeded... command %s' % command)  
+                    raise Exception('command timeout')
+            
+        print ('Done!!! sent command: %s to %s' % (command, self.tello_ip))
+        print (self.log[-1].got_response())
         return self.log[-1].got_response()
-        #timer.start()
-        #while self.response is None:
-         #   if self.abort_flag is True:
-          #      break
-        #timer.cancel()
         
-        #if self.response is None:
-         #   response = 'none_response'
-        #else:
-         #   response = self.response.decode('utf-8')
-
-        #self.response = None
-
-        #return response
     
     def set_abort_flag(self):
         """
